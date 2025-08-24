@@ -1,0 +1,11 @@
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/bin/Debug/net8.0/ProductManagement.Domain.deps.json
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/bin/Debug/net8.0/ProductManagement.Domain.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/bin/Debug/net8.0/ProductManagement.Domain.pdb
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.AssemblyInfoInputs.cache
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.AssemblyInfo.cs
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.csproj.CoreCompileInputs.cache
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/refint/ProductManagement.Domain.dll
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ProductManagement.Domain.pdb
+/Users/gopinathan_ar/Developer/Claude_Projecs/ProductManagement.DDD/src/ProductManagement.Domain/obj/Debug/net8.0/ref/ProductManagement.Domain.dll
