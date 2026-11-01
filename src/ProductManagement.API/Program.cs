@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using ProductManagement.Application.Behaviors;
 using ProductManagement.Application.Handlers;
 using ProductManagement.Application.Validators;
 using ProductManagement.Domain.Repositories;
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddMediatR(cfg => 
 {
     cfg.RegisterServicesFromAssembly(typeof(ProductCommandHandlers).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
 // Add FluentValidation
