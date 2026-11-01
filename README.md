@@ -9,14 +9,14 @@ The solution follows Domain Driven Design (DDD) principles with the following la
 ### Domain Layer (`ProductManagement.Domain`)
 - **Entities**: Core business entities with business logic and domain events
 - **Value Objects**: Immutable objects like Money
-- **Domain Events**: Events raised by entities when important business actions occur
+- **Domain Events**: Events raised by entities when important business actions occur (collected on the entity, not dispatched)
 - **Repositories**: Interfaces for data access
 
 ### Application Layer (`ProductManagement.Application`)
 - **Commands & Queries**: CQRS pattern implementation using MediatR
 - **Handlers**: Command and query handlers
 - **DTOs**: Data transfer objects
-- **Validators**: FluentValidation rules
+- **Validators**: FluentValidation rules, run on every request through a MediatR pipeline behavior
 
 ### Infrastructure Layer (`ProductManagement.Infrastructure`)
 - **Persistence**: Entity Framework Core DbContext and configurations
@@ -30,7 +30,7 @@ The solution follows Domain Driven Design (DDD) principles with the following la
 
 1. **Rich Domain Models**: Product entity with encapsulated business logic
 2. **Value Objects**: Money value object with currency support
-3. **Domain Events**: Events for product creation, updates, price changes, etc.
+3. **Domain Events**: Events raised for product creation, updates, price changes, etc. (not dispatched to handlers yet)
 4. **Repository Pattern**: Abstracted data access
 5. **Aggregates**: Product as an aggregate root
 6. **CQRS**: Separate commands and queries with MediatR
@@ -42,8 +42,9 @@ The solution follows Domain Driven Design (DDD) principles with the following la
 - Stock quantity management
 - Product activation/deactivation
 - Category-based filtering
-- Domain events for business actions
-- Input validation with FluentValidation
+- Domain events raised for business actions (not dispatched to handlers yet)
+- Input validation with FluentValidation, with a 400 response listing the errors per field
+- Business rules enforced in the domain model (for example, no negative price or stock)
 - In-memory database for development
 - Swagger documentation
 
@@ -68,12 +69,12 @@ The solution follows Domain Driven Design (DDD) principles with the following la
    cd src/ProductManagement.API
    ```
 
-2. Run the application:
+2. Run the application in the Development environment, which is what enables Swagger:
    ```bash
-   dotnet run
+   dotnet run -- --environment Development
    ```
 
-3. Access Swagger UI at: `https://localhost:5001/swagger`
+3. Access Swagger UI at: `http://localhost:5000/swagger`
 
 ## Sample Request Bodies
 
@@ -113,9 +114,19 @@ The solution follows Domain Driven Design (DDD) principles with the following la
 }
 ```
 
+## Validation Errors
+
+Invalid requests return `400 Bad Request` with one entry per failed rule:
+
+```json
+[
+  "Currency: Currency must be 3 characters long"
+]
+```
+
 ## Domain Events
 
-The following domain events are raised:
+The following domain events are raised and collected in the entity's `DomainEvents` collection. Nothing dispatches them yet, and they are not persisted:
 - `ProductCreatedEvent`
 - `ProductUpdatedEvent`
 - `ProductPriceChangedEvent`
@@ -132,4 +143,4 @@ dotnet build
 
 ## Testing
 
-The API uses an in-memory database, so data will be reset on each application restart.
+The solution has no automated tests yet. The API uses an in-memory database, so data will be reset on each application restart.
