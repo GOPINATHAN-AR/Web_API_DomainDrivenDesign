@@ -1,3 +1,4 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands;
@@ -49,6 +50,10 @@ public class ProductsController : ControllerBase
             var product = await _mediator.Send(new CreateProductCommand(createProductDto));
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ToFieldErrors(ex));
+        }
         catch (ArgumentException ex)
         {
             return BadRequest(ex.Message);
@@ -62,6 +67,10 @@ public class ProductsController : ControllerBase
         {
             var product = await _mediator.Send(new UpdateProductCommand(id, updateProductDto));
             return Ok(product);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ToFieldErrors(ex));
         }
         catch (InvalidOperationException ex)
         {
@@ -81,6 +90,10 @@ public class ProductsController : ControllerBase
             var product = await _mediator.Send(new UpdateProductPriceCommand(id, updatePriceDto));
             return Ok(product);
         }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ToFieldErrors(ex));
+        }
         catch (InvalidOperationException ex)
         {
             return NotFound(ex.Message);
@@ -98,6 +111,10 @@ public class ProductsController : ControllerBase
         {
             var product = await _mediator.Send(new UpdateProductStockCommand(id, updateStockDto));
             return Ok(product);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ToFieldErrors(ex));
         }
         catch (InvalidOperationException ex)
         {
@@ -145,5 +162,10 @@ public class ProductsController : ControllerBase
             return NotFound($"Product with ID {id} not found");
         
         return NoContent();
+    }
+
+    private static IEnumerable<string> ToFieldErrors(ValidationException ex)
+    {
+        return ex.Errors.Select(f => $"{f.PropertyName.Split('.').Last()}: {f.ErrorMessage}");
     }
 }
